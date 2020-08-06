@@ -21,6 +21,9 @@
                 $stmt -> execute([$userId, $email, $password]);
             }
         }
+        else{
+            $taken = "Email invalid";
+        }
     }
 
     if(isset($_POST['login'])){
@@ -54,49 +57,50 @@
 </head>
 
 <!-- navbar -->
-    <nav id="navbar">
+<nav id="navbar">
     <ul>
-       <li class="dropdown">
-          <a href="index.html" class="dropbtn">Home</a>
-          <div class ="dropdown-content">
-          </div>
-       </li>
-       <li class="dropdown">
-          <a href="board.html" class="dropbtn">Play!</a>
-          <div class="dropdown-content">
-          </div>
-       </li>
-       <li class="dropdown">
-          <a href="#" class="dropbtn">About</a>
-          <div class="dropdown-content">
-             <a href="developer.html">About The Developers</a>
-             <a href="contact.html">Contact</a>
-             <a href="rules.html">Rules</a>
-             <a href="history.html">History</a>
-          </div>
-       </li>
-       <li class="dropdown">
-          <a href="#" class="dropbtn">Other places to Play</a>
-          <div class="dropdown-content">
-             <a href="https://www.247checkers.com/">247Checkers.com</a>
-             <a href="https://gametable.org/games/checkers/">GameTable.org</a>
-             <a href="https://cardgames.io/checkers/">CardGames.io</a>
-          </div>
-       </li>
-       <li class="dropdown">
-          <a href="#" class="dropbtn">Search</a>
-          <div class="dropdown-content">
-             <a href="https://www.google.com/search?q=checkers">Checkers on the Internet</a>
-          </div>
-       </li>
-       <li class="dropdown">
-          <a href="login.html" class="dropbtn">Login/Register</a>
-          <div class="dropdown-content">
-          </div>
-       </li>
+        <li class="dropdown">
+            <a href="index.html" class="dropbtn">Home</a>
+            <div class="dropdown-content">
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="board.html" class="dropbtn">Play!</a>
+            <div class="dropdown-content">
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">About</a>
+            <div class="dropdown-content">
+                <a href="developer.html">About The Developers</a>
+                <a href="contact.html">Contact</a>
+                <a href="rules.html">Rules</a>
+                <a href="history.html">History</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Other places to Play</a>
+            <div class="dropdown-content">
+                <a href="https://www.247checkers.com/">247Checkers.com</a>
+                <a href="https://gametable.org/games/checkers/">GameTable.org</a>
+                <a href="https://cardgames.io/checkers/">CardGames.io</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Search</a>
+            <div class="dropdown-content">
+                <a href="https://www.google.com/search?q=checkers">Checkers on the Internet</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="login.html" class="dropbtn">Login/Register</a>
+            <div class="dropdown-content">
+            </div>
+        </li>
     </ul>
-    </nav>
-    <!--NAVBAR ENDS HERE-->
+</nav>
+<!--NAVBAR ENDS HERE-->
+
 <body>
     <!--START OF LOGIN-->
     <div class="form-box">
@@ -109,18 +113,20 @@
             <input type="text" name="userId" class="input-field" placeholder="User Id" required>
             <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
             <?php if(isset($wlogin)){ ?>
-                <p><?php echo $wlogin ?></p>
+            <p><?php echo $wlogin ?></p>
             <?php } ?>
             <button name="login" type="submit" class="submit-btn"> Log in </button>
         </form>
         <form id="register" action="login.html" method="POST" class="input-group">
             <input type="text" name="userId" class="input-field" placeholder="User Id" required>
-               <br/>
-            <?php if(isset($taken)){ ?>
-                <script>alert("Registration unsuccessful"); </script>
-                <p><?php echo $taken ?></p>
-            <?php } ?>
             <input type="email" name="email" class="input-field" placeholder="Email Id" required>
+            <br />
+            <?php if(isset($taken)){ ?>
+            <script>
+                alert("Registration unsuccessful");
+            </script>
+            <p><?php echo $taken ?></p>
+            <?php } ?>
             <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
             <button name="register" type="rsubmit" class="submit-btn"> Register </button>
         </form>
@@ -142,7 +148,6 @@
             y.style.left = "450px";
             z.style.left = "0px";
         }
-
     </script>
 
     <!--END OF LOGIN-->
