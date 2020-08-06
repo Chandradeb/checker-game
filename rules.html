@@ -1,0 +1,55 @@
+<?php
+    session_start();
+    if(isset($_SESSION['id'])){
+        require('db.php');
+        $id = $_SESSION['id'];
+        
+        $stmt = $pdo -> prepare ('SELECT * from game_db WHERE id = ? ');
+        $stmt -> execute([$id]);
+        $user = $stmt -> fetch();
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS 355 Rules</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+     h1{
+        padding-top: 5%; 
+        color: #f9f9f9;
+        text-align: center;
+     }
+     p{
+        color: #f9f9f9;
+     }
+  </style>
+</head>
+<body>
+<?php require('nav.html')?>
+
+<h1>Rules<h1>
+<p>
+<ul style="text-align: left; font-size:16px">
+<li>The opponent with the darker pieces moves first.</li> <br>
+<li>Pieces may only move one diagonal space forward (towards their opponents pieces) in the
+beginning of the game.</li><br>
+<li>Pieces must stay on the dark squares.</li><br>
+<li>To capture an opposing piece,"jump" over it by moving two diagonal spaces in the direction of
+the the opposing piece.</li><br>
+<li>A piece may jump forward over an opponent's pieces in multiple parts of the board to capture
+them.</li><br>
+<li>Keep in mind, the space on the other side of your opponent’s piece must be empty for you to
+capture it.</li><br>
+<li>If your piece reaches the last row on your opponent's side, you may re-take one of your captured
+pieces and "crown"the piece that made it to the Kings Row. Thereby making it a "King Piece."</li><br>
+<li>King pieces may still only move one space at a time during a non-capturing move. However,
+when capturing an opponent's piece(s) it may move diagonally forward or backwards.
+There is no limit to how many king pieces a player may have.</li>
+</ul>
+</p>
+
+</body>

@@ -1,0 +1,36 @@
+<?php
+    session_start();
+    if(isset($_SESSION['id'])){
+        require('db.php');
+        $id = $_SESSION['id'];
+        
+        $stmt = $pdo -> prepare ('SELECT * from game_db WHERE id = ? ');
+        $stmt -> execute([$id]);
+        $user = $stmt -> fetch();
+    }
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS 355 Home Page</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+     h1{
+        padding-top: 20%; 
+        color: #f9f9f9;
+        text-align: center;
+     }
+     p{
+        color: #f9f9f9;
+     }
+  </style>
+</head>
+<body>
+<?php require('nav.html')?>
+   <h1>Welcome to our Checkers site!</h1>
+</body>
+</html>

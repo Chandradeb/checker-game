@@ -1,0 +1,151 @@
+<?php
+    session_start();
+    if(isset($_POST['register'])){
+        require('db.php');
+        $userId = filter_var($_POST["userId"], FILTER_SANITIZE_STRING);
+        $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+        $password = filter_var($_POST["password"], FILTER_SANITIZE_STRING);  
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $stmt = $pdo -> prepare ('SELECT * from game_db WHERE userId = ? ');
+            $stmt -> execute([$userId]);
+            $totalUsers = $stmt -> rowCount();
+
+            $stmt = $pdo -> prepare ('SELECT * from game_db WHERE email = ? ');
+            $stmt -> execute([$email]);
+            $totalUserEmail = $stmt -> rowCount();
+            
+            if($totalUsers > 0 || $totalUserEmail > 0){
+                $taken = "User ID or email has been taken";
+            } else{
+                $stmt = $pdo -> prepare('INSERT into game_db (userId, email, password) VALUES(?, ?, ?)');
+                $stmt -> execute([$userId, $email, $password]);
+            }
+        }
+    }
+
+    if(isset($_POST['login'])){
+        require('db.php');
+        $userId = filter_var($_POST["userId"], FILTER_SANITIZE_STRING);
+        $password = filter_var($_POST["password"], FILTER_SANITIZE_STRING);  
+        $stmt = $pdo -> prepare ('SELECT * from game_db WHERE userId = ? ');
+        $stmt -> execute([$userId]);
+        $user = $stmt -> fetch();
+        
+        if(isset($user)){
+            if($password === $user -> password){
+                $_SESSION['id'] = $user -> id;
+                header('location: board.html');
+            } else {
+                $wlogin = "The login email or password is incorrect";
+            }
+        }
+    }
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<!-- navbar -->
+    <nav id="navbar">
+    <ul>
+       <li class="dropdown">
+          <a href="index.html" class="dropbtn">Home</a>
+          <div class ="dropdown-content">
+          </div>
+       </li>
+       <li class="dropdown">
+          <a href="board.html" class="dropbtn">Play!</a>
+          <div class="dropdown-content">
+          </div>
+       </li>
+       <li class="dropdown">
+          <a href="#" class="dropbtn">About</a>
+          <div class="dropdown-content">
+             <a href="developer.html">About The Developers</a>
+             <a href="contact.html">Contact</a>
+             <a href="rules.html">Rules</a>
+             <a href="history.html">History</a>
+          </div>
+       </li>
+       <li class="dropdown">
+          <a href="#" class="dropbtn">Other places to Play</a>
+          <div class="dropdown-content">
+             <a href="https://www.247checkers.com/">247Checkers.com</a>
+             <a href="https://gametable.org/games/checkers/">GameTable.org</a>
+             <a href="https://cardgames.io/checkers/">CardGames.io</a>
+          </div>
+       </li>
+       <li class="dropdown">
+          <a href="#" class="dropbtn">Search</a>
+          <div class="dropdown-content">
+             <a href="https://www.google.com/search?q=checkers">Checkers on the Internet</a>
+          </div>
+       </li>
+       <li class="dropdown">
+          <a href="login.html" class="dropbtn">Login/Register</a>
+          <div class="dropdown-content">
+          </div>
+       </li>
+    </ul>
+    </nav>
+    <!--NAVBAR ENDS HERE-->
+<body>
+    <!--START OF LOGIN-->
+    <div class="form-box">
+        <div class="button-box">
+            <div id="btn"> </div>
+            <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+            <button type="button" class="toggle-btn" onclick="register()">Register</button>
+        </div>
+        <form action="login.html" method="POST" id="login" class="input-group">
+            <input type="text" name="userId" class="input-field" placeholder="User Id" required>
+            <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+            <?php if(isset($wlogin)){ ?>
+                <p><?php echo $wlogin ?></p>
+            <?php } ?>
+            <button name="login" type="submit" class="submit-btn"> Log in </button>
+        </form>
+        <form id="register" action="login.html" method="POST" class="input-group">
+            <input type="text" name="userId" class="input-field" placeholder="User Id" required>
+               <br/>
+            <?php if(isset($taken)){ ?>
+                <script>alert("Registration unsuccessful"); </script>
+                <p><?php echo $taken ?></p>
+            <?php } ?>
+            <input type="email" name="email" class="input-field" placeholder="Email Id" required>
+            <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+            <button name="register" type="rsubmit" class="submit-btn"> Register </button>
+        </form>
+    </div>
+
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0px";
+        }
+
+    </script>
+
+    <!--END OF LOGIN-->
+</body>
+
+</html>

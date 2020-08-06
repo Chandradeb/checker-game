@@ -1,0 +1,61 @@
+<?php
+    session_start();
+    if(isset($_SESSION['id'])){
+        require('db.php');
+        $id = $_SESSION['id'];
+        
+        $stmt = $pdo -> prepare ('SELECT * from game_db WHERE id = ? ');
+        $stmt -> execute([$id]);
+        $user = $stmt -> fetch();
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS 355 About Us</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+     h1{
+        padding-top: 5%; 
+        color: #f9f9f9;
+        text-align: center;
+     }
+     p{
+        color: #f9f9f9;
+     }
+	 li{
+		color: #f9f9f9;
+	 }
+  </style>
+</head>
+<body>
+<?php require('nav.html')?>
+	<h1>Our Team</h1>
+	<p>
+		<ul>
+			<li>
+				<img src="Matthew.jpg" style="width:20%; max-height:auto; vertical-align:middle">
+				Matthew is the front-end website developer
+				</li>
+				<li>
+				<img src="Christina.jpg" style="width: 20%; max-height:auto; vertical-align:middle">
+				Christina is the back-end developer
+			</li>
+			<li>
+				<img src="Kevin.jpg" style="width: 20%; max-height:auto; vertical-align:middle">
+				Kevin is the game designer
+				</li>
+				<li>
+				<img src="Chandro.jpg" style="width: 20%; max-height:auto; vertical-align:middle">
+				Chandra is the server administrator
+				
+			</li>
+		</ul>
+	</p>
+  <ul>
+  
+</body>
+</html>

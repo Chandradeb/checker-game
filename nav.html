@@ -1,0 +1,48 @@
+<!-- navbar -->
+<nav id="navbar">
+    <ul>
+        <li class="dropdown">
+            <a href="index.html" class="dropbtn">Home</a>
+            <div class="dropdown-content">
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="board.html" class="dropbtn">Play!</a>
+            <div class="dropdown-content">
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">About</a>
+            <div class="dropdown-content">
+                <a href="developer.html">About The Developers</a>
+                <a href="contact.html">Contact</a>
+                <a href="rules.html">Rules</a>
+                <a href="history.html">History</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Other places to Play</a>
+            <div class="dropdown-content">
+                <a href="https://www.247checkers.com/">247Checkers.com</a>
+                <a href="https://gametable.org/games/checkers/">GameTable.org</a>
+                <a href="https://cardgames.io/checkers/">CardGames.io</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropbtn">Search</a>
+            <div class="dropdown-content">
+                <a href="https://www.google.com/search?q=checkers">Checkers on the Internet</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <?php if(isset($user)){ ?>
+                <a href="logout.html" class="dropbtn">Logout</a>
+            <?php } else { ?>
+                <a href="login.html" class="dropbtn">Login/Register</a>
+            <?php } ?>
+            <div class="dropdown-content">
+            </div>
+        </li>
+    </ul>
+</nav>
+<!--NAVBAR ENDS HERE-->

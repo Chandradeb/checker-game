@@ -1,0 +1,43 @@
+<?php
+    session_start();
+    if(isset($_SESSION['id'])){
+        require('db.php');
+        $id = $_SESSION['id'];
+        
+        $stmt = $pdo -> prepare ('SELECT * from game_db WHERE id = ? ');
+        $stmt -> execute([$id]);
+        $user = $stmt -> fetch();
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS 355 History of Checkers</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+     h1{
+        padding-top: 5%; 
+        color: #f9f9f9;
+        text-align: center;
+     }
+     p{
+        color: #f9f9f9;
+     }
+	 li{
+		color: #f9f9f9;
+	 }
+  </style>
+</head>
+<body>
+<?php require('nav.html')?>
+<h1>History of Checkers</h1>
+<p>
+<p style="text-align:center">Today’s game of checkers developed around the start of the 12th century. A Frenchman came up with the idea of playing checkers on a chess board. At that time, the game was called “Fierges” or “Ferses.” With a new board design and new rules set, the game made its way to England and the Americas. <br><br>
+Today, most English-speaking countries use a 64-space checker board. This is known as the short king board version. However, much of Europe and Asia use a checker board with 100 spaces. This is called the long king version. Some people in Canada even use a board with 144 spaces!<br><br>
+Checkers remains a popular game around the world today. For many children, it’s the first game they learn how to play. Teachers have long known that the simple game of checkers can provide significant training in thought and logic. Of course, it also keeps players occupied with fun competition.
+  </p>
+</body>
+</html>
